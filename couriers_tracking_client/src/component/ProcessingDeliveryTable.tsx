@@ -5,7 +5,7 @@ import {DeliveryService} from '../service/DeliveryService';
 import {Delivery} from "../obj/Delivery";
 
 
-export default function ProcessingDeliveryTableComponent() {
+export default function ProcessingDeliveryTable() {
     const [processingDeliveries, setProcessingDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
@@ -25,6 +25,7 @@ export default function ProcessingDeliveryTableComponent() {
                 <Column field="description" header="Статус"></Column>
                 <Column field="performer" header="Курьер"></Column>
                 <Column field="whoRequested" header="Заказчик"></Column>
+                <Column field="orderNum" header="Номер заказа"></Column>
                 <Column field="addressTo" header="Адрес доставки"></Column>
             </DataTable>
         </div>

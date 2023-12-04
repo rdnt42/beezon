@@ -11,9 +11,10 @@ import java.time.Instant
 
 @Table(name = "deliveries")
 @Entity
-class DeliveryEntity(
+class Delivery(
     @Id
     val id: String,
+    val orderNum: String?,
 
     @Column
     val description: String,

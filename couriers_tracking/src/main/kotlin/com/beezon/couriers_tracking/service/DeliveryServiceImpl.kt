@@ -3,7 +3,8 @@ package com.beezon.couriers_tracking.service
 import com.beezon.couriers_tracking.client.DeliveryClient
 import com.beezon.couriers_tracking.client.response.delivery.DeliveryInfoResponse
 import com.beezon.couriers_tracking.controller.error.ResourceNotFoundException
-import com.beezon.couriers_tracking.entity.DeliveryEntity
+import com.beezon.couriers_tracking.controller.request.CreateDeliveryRequest
+import com.beezon.couriers_tracking.entity.Delivery
 import com.beezon.couriers_tracking.enums.DeliveryStatus
 import com.beezon.couriers_tracking.enums.VisitStatus
 import com.beezon.couriers_tracking.enums.VisitStatus.PENDING
@@ -22,23 +23,23 @@ class DeliveryServiceImpl(
     val log: Logger = LoggerFactory.getLogger(DeliveryServiceImpl::class.java)
     val workingStatuses = listOf(DeliveryStatus.IN_PROCESS, DeliveryStatus.WAITING)
 
-    override fun createDelivery(deliveryUrl: String): DeliveryEntity {
+    override fun createDelivery(request: CreateDeliveryRequest): Delivery {
         val regex = Regex("/route/([\\w-]+)")
-        val matchResult = regex.find(deliveryUrl)
+        val matchResult = regex.find(request.url)
         val id = matchResult?.groups?.get(1)?.value
-            ?: throw IllegalArgumentException("Cannot find delivery id in $deliveryUrl")
+            ?: throw IllegalArgumentException("Cannot find delivery id in ${request.url}")
 
         val deliveryInfo = deliveryClient.getDeliveryInfo(id)
-        val delivery = map(deliveryInfo, id)
+        val delivery = map(deliveryInfo, id, request.orderNum)
         return deliveryRepository.save(delivery)
     }
 
-    override fun getDelivery(id: String): DeliveryEntity {
+    override fun getDelivery(id: String): Delivery {
         return deliveryRepository.findById(id)
             .orElseThrow { ResourceNotFoundException() }
     }
 
-    override fun getAllDeliveries(statuses: List<DeliveryStatus>?): List<DeliveryEntity> {
+    override fun getAllDeliveries(statuses: List<DeliveryStatus>?): List<Delivery> {
         statuses?.let {
             return deliveryRepository.findAllByStatusIn(statuses)
         }
@@ -52,17 +53,17 @@ class DeliveryServiceImpl(
 
         deliveries.map {
             val deliveryInfo = deliveryClient.getDeliveryInfo(it.id)
-            val delivery = map(deliveryInfo, it.id)
+            val delivery = map(deliveryInfo, it.id, it.orderNum)
             deliveryRepository.save(delivery)
             log.info("Delivery with id: {} updated", delivery.id)
         }
     }
 
-    private fun map(response: DeliveryInfoResponse, id: String): DeliveryEntity {
+    private fun map(response: DeliveryInfoResponse, id: String, orderNum: String?): Delivery {
         val src = response.routePoints[0]
         val dst = response.routePoints[1]
 
-        return DeliveryEntity(
+        return Delivery(
             id,
             description = response.summary,
             performer = getPerformerDsc(response.description, response.performer.vehicleNumber),
@@ -74,7 +75,8 @@ class DeliveryServiceImpl(
             phoneTo = dst.contact?.phone,
             commentTo = dst.comment,
             createdDate = Instant.now(),
-            updatedDate = Instant.now()
+            updatedDate = Instant.now(),
+            orderNum = orderNum
         )
     }
 

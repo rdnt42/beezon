@@ -1,13 +1,15 @@
 import React from 'react';
-import ProcessingDeliveryTableComponent from "./component/ProcessingDeliveryTable";
-import FinishedDeliveryTableComponent from "./component/FinishedDeliveryTable";
+import ProcessingDeliveryTable from "./component/ProcessingDeliveryTable";
+import FinishedDeliveryTable from "./component/FinishedDeliveryTable";
+import CreateNewDelivery from "./component/CreateNewDelivery";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <ProcessingDeliveryTableComponent/>
-          <FinishedDeliveryTableComponent/>
+          <CreateNewDelivery/>
+          <ProcessingDeliveryTable/>
+          <FinishedDeliveryTable/>
       </header>
     </div>
   );
