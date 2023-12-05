@@ -15,7 +15,7 @@ export default function FinishedDeliveryTable() {
 
     const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-            <span className="text-xl text-900 font-bold">Завершенные заказы</span>
+            <span className="text-xl text-900 font-bold">Завершены</span>
         </div>
     );
 

@@ -5,23 +5,23 @@ import {DeliveryService} from '../service/DeliveryService';
 import {Delivery} from "../obj/Delivery";
 
 
-export default function ProcessingDeliveryTable() {
-    const [processingDeliveries, setProcessingDeliveries] = useState<Delivery[]>([]);
+export default function WaitingDeliveryTable() {
+    const [waitingDeliveries, setWaitingDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
-        DeliveryService.getProcessingDeliveries()
-            .then(data => setProcessingDeliveries(data));
+        DeliveryService.getWaitingDeliveries()
+            .then(data => setWaitingDeliveries(data));
     }, []);
 
     const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-            <span className="text-xl text-900 font-bold">Доставляются клиенту</span>
+            <span className="text-xl text-900 font-bold">На пути к пункту выдачи</span>
         </div>
     );
 
     return (
         <div className="card">
-            <DataTable value={processingDeliveries} header={header} tableStyle={{minWidth: '50rem'}}>
+            <DataTable value={waitingDeliveries} header={header} tableStyle={{minWidth: '50rem'}}>
                 <Column field="description" header="Статус"></Column>
                 <Column field="performer" header="Курьер"></Column>
                 <Column field="whoRequested" header="Заказчик"></Column>

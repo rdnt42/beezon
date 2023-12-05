@@ -3,8 +3,14 @@ import {Delivery} from "../obj/Delivery";
 import {CreateDeliveryRequest} from "../obj/CreateDeliveryRequest";
 
 export const DeliveryService = {
+    getWaitingDeliveries(): Promise<Delivery[]> {
+        return axios.get<Delivery[]>(`/api/v1/deliveries?statuses=WAITING`)
+            .then(res => {
+                return res.data;
+            });
+    },
     getProcessingDeliveries(): Promise<Delivery[]> {
-        return axios.get<Delivery[]>(`/api/v1/deliveries?statuses=WAITING,IN_PROCESS`)
+        return axios.get<Delivery[]>(`/api/v1/deliveries?statuses=IN_PROCESS`)
             .then(res => {
                 return res.data;
             });

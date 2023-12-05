@@ -1,9 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useRef, useState} from 'react';
 import {InputText} from 'primereact/inputtext';
 import {Button} from "primereact/button";
 import {DeliveryService} from '../service/DeliveryService';
+import {Toast} from "primereact/toast";
 
 export default function CreateNewDelivery() {
+    const toast = useRef<Toast>(null);
     const [url, setUrl] = useState<string>('');
     const [orderNum, setOrderNum] = useState<string | undefined>(undefined);
 
@@ -11,7 +13,18 @@ export default function CreateNewDelivery() {
         DeliveryService.createDelivery({
             url,
             orderNum
-        }).then(r => console.log('created new order'))
+        }).then(r => {
+            // @ts-ignore
+            toast.current.show({ severity: 'success', summary: 'Success', detail: `Добавлен новый заказ ${r.orderNum}` });
+            setUrl('')
+            setOrderNum(undefined)
+        }).catch(error => {
+                console.log(error)
+                // @ts-ignore
+                toast.current.show({
+                    severity: 'error', summary: 'Error', detail: 'Ошибка при добавлении зазказа'
+                })
+            });
     }
 
     // TODO
@@ -24,6 +37,7 @@ export default function CreateNewDelivery() {
 
     return (
         <div className="card flex flex-column md:flex-row gap-3">
+            <Toast ref={toast}></Toast>
             <div className="p-inputgroup flex-1">
                 <span className="p-inputgroup-addon">
                     <i className="pi pi-truck"></i>
@@ -38,7 +52,8 @@ export default function CreateNewDelivery() {
                 <InputText placeholder="Номер заказа" value={orderNum} onChange={handleOrderNum}/>
             </div>
 
-            <Button label="Добавить доставку" onClick={createDelivery}/>
+            <Toast ref={toast}></Toast>
+            <Button label="Добавить заказ" onClick={createDelivery}/>
         </div>
     )
 }

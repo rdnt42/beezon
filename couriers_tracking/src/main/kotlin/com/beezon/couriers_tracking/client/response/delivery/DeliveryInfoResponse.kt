@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class DeliveryInfoResponse(
     val summary: String,
-    val description: String,
+    val description: String?,
     @JsonProperty("route_points")
     val routePoints: List<RoutePoint>,
     val performer: Performer

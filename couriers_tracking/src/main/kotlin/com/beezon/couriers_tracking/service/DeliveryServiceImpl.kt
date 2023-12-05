@@ -80,8 +80,8 @@ class DeliveryServiceImpl(
         )
     }
 
-    private fun getPerformerDsc(dsc: String, vehicleNumber: String?):String {
-        return "$dsc ${vehicleNumber ?: ""}"
+    private fun getPerformerDsc(dsc: String?, vehicleNumber: String?):String {
+        return "${dsc ?: "Мотоцикл"} ${vehicleNumber ?: ""}"
     }
 
     private fun getWhoRequested(comment: String?): String {
