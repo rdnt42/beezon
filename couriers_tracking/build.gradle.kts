@@ -12,7 +12,7 @@ group = "com.beezon"
 version = "0.0.1-SNAPSHOT"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_19
+    sourceCompatibility = JavaVersion.VERSION_HIGHER
 }
 
 repositories {
@@ -35,10 +35,14 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "19"
+        jvmTarget = "21"
     }
 }
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    archiveFileName.set("${project.name}.jar")
 }

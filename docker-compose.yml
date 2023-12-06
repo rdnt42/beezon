@@ -1,0 +1,14 @@
+version: '3'
+services:
+  backend:
+    container_name: couriers_tracking_backend
+    build: ./couriers_tracking
+    ports:
+      - "8080:8080"
+#    environment:
+#      - SPRING.PROFILES.ACTIVE=default
+  frontend:
+    container_name: couriers_tracking_frontend
+    build: ./couriers_tracking_client
+    ports:
+      - "3000:3000"
