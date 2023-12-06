@@ -28,6 +28,8 @@ dependencies {
     implementation ("io.github.microutils:kotlin-logging-jvm:3.0.5")
     runtimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation ("io.kotest:kotest-runner-junit5:5.8.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -37,6 +39,6 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-tasks.withType<Test> {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
