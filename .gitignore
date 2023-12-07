@@ -1,2 +1,4 @@
 /.idea/
-.env
+.env.production
+.env.dev
+/couriers_tracking_client/.env

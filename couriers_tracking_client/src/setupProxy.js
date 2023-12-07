@@ -4,7 +4,7 @@ module.exports = function(app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://backend:8080',
+            target: process.env.BEEZON_COURIERS_TRACKING_BACKEND_HOST,
             changeOrigin: true
         }),
     );
