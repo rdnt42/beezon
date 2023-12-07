@@ -42,7 +42,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
 }
-
-tasks.jar {
-    archiveFileName.set("${project.name}.jar")
-}
