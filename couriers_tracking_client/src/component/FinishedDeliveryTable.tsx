@@ -6,11 +6,19 @@ import {Delivery} from "../obj/Delivery";
 
 
 export default function FinishedDeliveryTable() {
-    const [processingDeliveries, setProcessingDeliveries] = useState<Delivery[]>([]);
+    const [finishedDeliveries, setFinishedDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
-        DeliveryService.getFinishedDeliveries()
-            .then(data => setProcessingDeliveries(data));
+        const fetchData = async () => {
+            const data = await DeliveryService.getFinishedDeliveries()
+            setFinishedDeliveries(data);
+        };
+
+        const intervalId = setInterval(() => {
+            fetchData().then();
+        }, 30000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const header = (
@@ -21,7 +29,7 @@ export default function FinishedDeliveryTable() {
 
     return (
         <div className="card">
-            <DataTable value={processingDeliveries} header={header} tableStyle={{minWidth: '50rem'}}>
+            <DataTable value={finishedDeliveries} header={header} tableStyle={{minWidth: '50rem'}}>
                 <Column field="description" header="Статус"></Column>
                 <Column field="performer" header="Курьер"></Column>
                 <Column field="whoRequested" header="Заказчик"></Column>

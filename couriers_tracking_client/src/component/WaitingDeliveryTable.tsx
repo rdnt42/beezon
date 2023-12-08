@@ -9,8 +9,16 @@ export default function WaitingDeliveryTable() {
     const [waitingDeliveries, setWaitingDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
-        DeliveryService.getWaitingDeliveries()
-            .then(data => setWaitingDeliveries(data));
+        const fetchData = async () => {
+            const data = await DeliveryService.getWaitingDeliveries()
+            setWaitingDeliveries(data);
+        };
+
+        const intervalId = setInterval(() => {
+            fetchData().then();
+        }, 30000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const header = (

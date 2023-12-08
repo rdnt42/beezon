@@ -9,8 +9,16 @@ export default function ProcessingDeliveryTable() {
     const [processingDeliveries, setProcessingDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
-        DeliveryService.getProcessingDeliveries()
-            .then(data => setProcessingDeliveries(data));
+        const fetchData = async () => {
+            const data = await DeliveryService.getProcessingDeliveries()
+            setProcessingDeliveries(data);
+        };
+
+        const intervalId = setInterval(() => {
+            fetchData().then();
+        }, 30000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const header = (
