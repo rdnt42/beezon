@@ -1,17 +1,14 @@
 import React from 'react';
-import ProcessingDeliveryTable from "./component/ProcessingDeliveryTable";
-import FinishedDeliveryTable from "./component/FinishedDeliveryTable";
-import CreateNewDelivery from "./component/CreateNewDelivery";
-import WaitingDeliveryTable from "./component/WaitingDeliveryTable";
+import DeliveryTable from "./component/DeliveryTable";
+import {DeliveryService} from "./service/DeliveryService";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <CreateNewDelivery/>
-          <WaitingDeliveryTable/>
-          <ProcessingDeliveryTable/>
-          <FinishedDeliveryTable/>
+          <DeliveryTable getDeliveries={DeliveryService.getWaitingDeliveries()} text={'На пути к пункту выдачи'}/>
+          <DeliveryTable getDeliveries={DeliveryService.getProcessingDeliveries()} text={'Доставляются клиенту'}/>
+          <DeliveryTable getDeliveries={DeliveryService.getFinishedDeliveries()} text={'Завершены'}/>
       </header>
     </div>
   );

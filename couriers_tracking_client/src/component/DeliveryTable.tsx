@@ -5,13 +5,14 @@ import {DeliveryService} from '../service/DeliveryService';
 import {Delivery} from "../obj/Delivery";
 
 
-export default function WaitingDeliveryTable() {
-    const [waitingDeliveries, setWaitingDeliveries] = useState<Delivery[]>([]);
+// @ts-ignore
+export default function DeliveryTable({getDeliveries, text}) {
+    const [deliveries, setDeliveries] = useState<Delivery[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await DeliveryService.getWaitingDeliveries()
-            setWaitingDeliveries(data);
+            const data = await getDeliveries();
+            setDeliveries(data);
         };
 
         const intervalId = setInterval(() => {
@@ -23,13 +24,13 @@ export default function WaitingDeliveryTable() {
 
     const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
-            <span className="text-xl text-900 font-bold">На пути к пункту выдачи</span>
+            <span className="text-xl text-900 font-bold">{text}</span>
         </div>
     );
 
     return (
         <div className="card">
-            <DataTable value={waitingDeliveries} header={header} tableStyle={{minWidth: '50rem'}}>
+            <DataTable value={deliveries} header={header} tableStyle={{minWidth: '50rem'}}>
                 <Column field="description" header="Статус"></Column>
                 <Column field="performer" header="Курьер"></Column>
                 <Column field="whoRequested" header="Заказчик"></Column>
