@@ -11,11 +11,12 @@ export const DeliveryPage = () => {
     return cookies.token ? (
         <div>
             <CreateNewDelivery/>
-            <DeliveryTable getDeliveries={DeliveryService.getWaitingDeliveries(cookies.token)}
+            <DeliveryTable getDeliveries={() => DeliveryService.getWaitingDeliveries(cookies.token)}
                            text={'На пути к пункту выдачи'}/>
-            <DeliveryTable getDeliveries={DeliveryService.getProcessingDeliveries(cookies.token)}
+            <DeliveryTable getDeliveries={() => DeliveryService.getProcessingDeliveries(cookies.token)}
                            text={'Доставляются клиенту'}/>
-            <DeliveryTable getDeliveries={DeliveryService.getFinishedDeliveries(cookies.token)} text={'Завершены'}/>
+            <DeliveryTable getDeliveries={() => DeliveryService.getFinishedDeliveries(cookies.token)}
+                           text={'Завершены'}/>
         </div>
     ) : (
         <Navigate to={{pathname: '/login'}}/>
