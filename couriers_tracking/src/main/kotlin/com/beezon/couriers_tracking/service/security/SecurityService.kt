@@ -11,14 +11,14 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-//@Service
+@Service
 class SecurityService(
     @Value("\${jwt.secret}")
     private val jwtSecret: String,
     @Value("\${jwt.expirationInMillis}")
     private val expirationInMillis: Long,
 
-    private val jwtParser: JwtParser,
+//    private val jwtParser: JwtParser,
 ) {
 
     private val tokenHeader = "Authorization"

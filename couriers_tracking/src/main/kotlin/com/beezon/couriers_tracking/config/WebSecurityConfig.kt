@@ -9,8 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.NoOpPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 
@@ -21,23 +23,14 @@ class WebSecurityConfig(
 ) {
 
     @Bean
-    @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http
-            .authorizeHttpRequests { requests ->
-                requests
-                    .requestMatchers("/login").permitAll()
-                    .requestMatchers("/api/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
-            }
-            .formLogin { form: FormLoginConfigurer<HttpSecurity> ->
-                form
-                    .loginPage("/login")
-                    .defaultSuccessUrl("/")
-                    .permitAll()
-            }
-            .logout { logout: LogoutConfigurer<HttpSecurity> -> logout.permitAll() }
-        return http.build()
+        http.csrf().disable()
+            .authorizeRequests()
+            .requestMatchers("/login/**").permitAll()
+            .anyRequest().authenticated()
+            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        return http.build();
     }
 
     @Bean
@@ -53,6 +46,7 @@ class WebSecurityConfig(
     ): AuthenticationManager? {
         return http.getSharedObject(AuthenticationManagerBuilder::class.java)
             .userDetailsService<UserDetailsService>(userService)
+            .passwordEncoder(NoOpPasswordEncoder.getInstance())
             .and()
             .build()
     }
