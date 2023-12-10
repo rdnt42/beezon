@@ -5,6 +5,9 @@ client:
 jwt:
   secret: ${COURIERS_TRACKING_JWT_SECRET}
   expirationInMillis: 86400000
+manager:
+  username: ${COURIERS_TRACKING_ADMIN_USERNAME}
+  password: ${COURIERS_TRACKING_ADMIN_PASSWORD}
 
 spring:
   h2:

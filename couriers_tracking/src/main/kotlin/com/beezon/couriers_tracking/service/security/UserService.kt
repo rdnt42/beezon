@@ -15,12 +15,9 @@ class UserService(private val userRepository: UserRepository): UserDetailsServic
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findById(username)
             .get()
-        val roles: MutableList<String> = ArrayList()
-        roles.add("ADMIN")
         return User.builder()
             .username(user.username)
             .password(user.password)
-            .roles(*roles.toTypedArray())
             .build()
     }
 }
