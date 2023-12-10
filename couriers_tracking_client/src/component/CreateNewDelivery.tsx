@@ -3,8 +3,11 @@ import {InputText} from 'primereact/inputtext';
 import {Button} from "primereact/button";
 import {DeliveryService} from '../service/DeliveryService';
 import {Toast} from "primereact/toast";
+import {useAuth} from "../auth";
 
 export default function CreateNewDelivery() {
+    const {cookies} = useAuth();
+
     const toast = useRef<Toast>(null);
     const [url, setUrl] = useState<string>('');
     const [orderNum, setOrderNum] = useState<string | undefined>(undefined);
@@ -13,18 +16,18 @@ export default function CreateNewDelivery() {
         DeliveryService.createDelivery({
             url,
             orderNum
-        }).then(r => {
+        }, cookies.token).then(r => {
             // @ts-ignore
-            toast.current.show({ severity: 'success', summary: 'Success', detail: `Добавлен новый заказ ${r.orderNum}` });
+            toast.current.show({severity: 'success', summary: 'Success', detail: `Добавлен новый заказ ${r.orderNum}`});
             setUrl('')
             setOrderNum(undefined)
         }).catch(error => {
-                console.log(error)
-                // @ts-ignore
-                toast.current.show({
-                    severity: 'error', summary: 'Error', detail: 'Ошибка при добавлении зазказа'
-                })
-            });
+            console.log(error)
+            // @ts-ignore
+            toast.current.show({
+                severity: 'error', summary: 'Error', detail: 'Ошибка при добавлении зазказа'
+            })
+        });
     }
 
     // TODO

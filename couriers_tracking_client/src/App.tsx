@@ -1,17 +1,23 @@
 import React from 'react';
-import DeliveryTable from "./component/DeliveryTable";
-import {DeliveryService} from "./service/DeliveryService";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {LoginPage} from "./component/page/LoginPage";
+import {DeliveryPage} from "./component/page/DeliveryPage";
+import {AppProvider} from "./AppProvider";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-          <DeliveryTable getDeliveries={DeliveryService.getWaitingDeliveries()} text={'На пути к пункту выдачи'}/>
-          <DeliveryTable getDeliveries={DeliveryService.getProcessingDeliveries()} text={'Доставляются клиенту'}/>
-          <DeliveryTable getDeliveries={DeliveryService.getFinishedDeliveries()} text={'Завершены'}/>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <AppProvider>
+                <div>
+                    <Routes>
+                        <Route path="/" element={<DeliveryPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
+                    </Routes>
+                </div>
+            </AppProvider>
+        </Router>
+    );
 }
 
 export default App;

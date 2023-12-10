@@ -20,7 +20,7 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        if (request.servletPath.contains("/login")) {
+        if (request.servletPath.contains("/api/login")) {
             filterChain.doFilter(request, response)
             return
         }

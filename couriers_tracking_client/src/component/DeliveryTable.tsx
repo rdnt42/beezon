@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
-import {DeliveryService} from '../service/DeliveryService';
 import {Delivery} from "../obj/Delivery";
 
 
