@@ -3,7 +3,6 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Delivery} from "../obj/Delivery";
 
-
 // @ts-ignore
 export default function DeliveryTable({getDeliveries, text}) {
     const [deliveries, setDeliveries] = useState<Delivery[]>([]);
@@ -13,7 +12,7 @@ export default function DeliveryTable({getDeliveries, text}) {
             const data = await getDeliveries();
             setDeliveries(data);
         };
-
+        fetchData().then();
         const intervalId = setInterval(() => {
             fetchData().then();
         }, 30000);

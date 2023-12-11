@@ -21,6 +21,7 @@ export default function CreateNewDelivery() {
             toast.current.show({severity: 'success', summary: 'Success', detail: `Добавлен новый заказ ${r.orderNum}`});
             setUrl('')
             setOrderNum(undefined)
+            window.location.reload();
         }).catch(error => {
             console.log(error)
             // @ts-ignore
