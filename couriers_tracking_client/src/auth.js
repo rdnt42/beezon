@@ -22,16 +22,18 @@ export const AuthProvider = ({children}) => {
     };
 
     const isValidToken = () => {
-        if (!cookies.token) return false;
+        try {
+            let payload = jwtDecode(cookies.token);
+            if (payload && payload.exp && payload.exp > (Date.now() / 1000)) {
 
-        let payload = jwtDecode(cookies.token);
-
-        if (!payload || !payload.exp || payload.exp < (Date.now() / 1000)) {
-            localStorage.clear();
-            return false;
+                return true;
+            }
+        } catch (err) {
+            console.error(err);
         }
+        localStorage.clear();
 
-        return true;
+        return false;
     };
 
     const value = useMemo(
