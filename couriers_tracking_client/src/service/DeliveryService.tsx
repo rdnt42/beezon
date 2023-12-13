@@ -3,34 +3,34 @@ import {Delivery} from "../obj/Delivery";
 import {CreateDeliveryRequest} from "../obj/CreateDeliveryRequest";
 
 export const DeliveryService = {
-    getWaitingDeliveries(token: String): Promise<Delivery[]> {
+    getWaitingDeliveries(token: string): Promise<Delivery[]> {
         return axios.get<Delivery[]>(`/api/v1/deliveries?statuses=WAITING`, this.getHeaders(token))
             .then(res => {
                 return res.data;
             });
     },
-    getProcessingDeliveries(token: String): Promise<Delivery[]> {
+    getProcessingDeliveries(token: string): Promise<Delivery[]> {
         return axios.get<Delivery[]>(`/api/v1/deliveries?statuses=IN_PROCESS`, this.getHeaders(token))
             .then(res => {
                 return res.data;
             });
     },
 
-    getFinishedDeliveries(token: String): Promise<Delivery[]> {
+    getFinishedDeliveries(token: string): Promise<Delivery[]> {
         return axios.get(`/api/v1/deliveries?statuses=COMPLETED`, this.getHeaders(token))
             .then(res => {
                 return res.data;
             });
     },
 
-    createDelivery(request: CreateDeliveryRequest, token: String): Promise<Delivery[]> {
+    createDelivery(request: CreateDeliveryRequest, token: string): Promise<Delivery[]> {
         return axios.post(`/api/v1/deliveries`, request, this.getHeaders(token))
             .then(res => {
                 return res.data;
             });
     },
 
-    getHeaders(token: String) {
+    getHeaders(token: string) {
         return {
             headers: {
                 Authorization: `Bearer ${token}`

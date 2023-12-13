@@ -2,6 +2,7 @@ import {createContext, useContext, useMemo} from 'react';
 import {useCookies} from 'react-cookie';
 import {useNavigate} from 'react-router-dom';
 import {LoginService} from "./service/LoginService";
+import {jwtDecode} from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -20,10 +21,24 @@ export const AuthProvider = ({children}) => {
 
     };
 
+    const isValidToken = () => {
+        if (!cookies.token) return false;
+
+        let payload = jwtDecode(cookies.token);
+
+        if (!payload || !payload.exp || payload.exp < (Date.now() / 1000)) {
+            localStorage.clear();
+            return false;
+        }
+
+        return true;
+    };
+
     const value = useMemo(
         () => ({
             cookies,
             login,
+            isValidToken,
         }),
         [cookies]
     );
