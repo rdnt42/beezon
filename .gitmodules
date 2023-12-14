@@ -1,6 +1,0 @@
-[submodule "couriers_tracking"]
-	path = couriers_tracking
-	url = ./couriers_tracking
-[submodule "storage_manager"]
-	path = storage_manager
-	url = ./storage_manager
