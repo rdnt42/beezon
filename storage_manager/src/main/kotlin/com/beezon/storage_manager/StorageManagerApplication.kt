@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling
 
 @EnableScheduling
 @SpringBootApplication
-class CouriersTrackingApplication
+class StorageManagerApplication
 
 fun main(args: Array<String>) {
-    runApplication<CouriersTrackingApplication>(*args)
+    runApplication<StorageManagerApplication>(*args)
 }
