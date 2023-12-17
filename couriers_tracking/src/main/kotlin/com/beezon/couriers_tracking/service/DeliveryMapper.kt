@@ -44,11 +44,11 @@ class DeliveryMapper {
     }
 
     private fun getStatus(srcStatus: VisitStatus, dstStatus: VisitStatus): DeliveryStatus {
-        if (srcStatus == VisitStatus.PENDING && dstStatus == VisitStatus.PENDING) {
+        if ((srcStatus == VisitStatus.PENDING || srcStatus == VisitStatus.ARRIVED) && dstStatus == VisitStatus.PENDING) {
             return DeliveryStatus.WAITING
         } else if (srcStatus == VisitStatus.VISITED && dstStatus == VisitStatus.PENDING) {
             return DeliveryStatus.IN_PROCESS
-        } else if (srcStatus == VisitStatus.VISITED && dstStatus == VisitStatus.VISITED) {
+        } else if (srcStatus == VisitStatus.VISITED && (dstStatus == VisitStatus.VISITED || dstStatus == VisitStatus.ARRIVED)) {
             return DeliveryStatus.COMPLETED
         }
 
