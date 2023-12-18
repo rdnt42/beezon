@@ -1,5 +1,6 @@
 package com.beezon.code_handler;
 
+import com.beezon.code_handler.service.QrGenerator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ public class BarCodeReaderApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         stage.setTitle("Обработчик штрих-кодов");
         stage.setScene(scene);
+
         stage.show();
     }
 
