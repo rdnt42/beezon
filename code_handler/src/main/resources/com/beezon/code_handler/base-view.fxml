@@ -5,17 +5,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.beezon.code_handler.controller.CommandController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+    <HBox alignment="TOP_RIGHT" spacing="20.0" xmlns:fx="http://javafx.com/fxml">
+        <padding>
+            <Insets right="20.0" top="20.0"/>
+        </padding>
+        <ImageView fx:id="soundOnImg"/>
+        <ImageView fx:id="soundOffImg"/>
+    </HBox>
 
-    <ImageView fx:id="soundOnImg"/>
-    <ImageView fx:id="soundOffImg"/>
-
-    <TextField fx:id="inputBuffer" onAction="#onInputBufferText"/>
+    <TextField fx:id="inputBuffer"  onAction="#onInputBufferText"/>
     <Label text="Считанный штрих-код"/>
     <Label fx:id="readedBarCodeLbl"/>
     <Label fx:id="orderInfoLbl"/>

@@ -1,6 +1,5 @@
 package com.beezon.code_handler;
 
-import com.beezon.code_handler.service.QrGenerator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
