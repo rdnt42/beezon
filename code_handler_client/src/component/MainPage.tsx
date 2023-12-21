@@ -1,11 +1,16 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {InputText} from "primereact/inputtext";
-import {useDebounce} from "use-debounce";
+import {useDebounce, useDebouncedCallback} from "use-debounce";
 
 export default function MainPage() {
     const [inputValue, setInputValue] = useState('');
     const [barCode] = useDebounce(inputValue, 100);
 
+    useEffect(() => {
+        if(barCode === undefined) return;
+        console.log('Readed bar-code', barCode);
+        setInputValue('');
+    }, [barCode]);
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     }
