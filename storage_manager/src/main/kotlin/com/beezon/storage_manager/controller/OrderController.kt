@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.*
 class OrderController(private val orderService: OrderService) {
 
     @PostMapping
-    fun createDeliveryInfo(@RequestBody orderRequest: OrderRequest): Order {
+    fun createOrder(@RequestBody orderRequest: OrderRequest): Order {
         return orderService.create(orderRequest)
     }
 
     @GetMapping("/{id}")
-    fun getDeliveryInfo(@PathVariable id: Long): Order {
+    fun getOrder(@PathVariable id: String): Order {
         return orderService.get(id)
     }
 
+
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun deleteDeliveryInfo(@PathVariable id: Long) {
+    fun deleteOrder(@PathVariable id: String) {
         orderService.delete(id)
     }
 }

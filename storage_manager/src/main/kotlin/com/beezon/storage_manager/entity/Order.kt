@@ -6,19 +6,21 @@ import jakarta.persistence.*
 @Entity
 data class Order(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
-
-    @Column(unique = true)
-    val barCode: String,
+    val id: String,
 
     val client: String,
 
     val itemsCount: Int,
 
+    @OneToMany
+    val parts: List<OrderPart>? = null,
+
+    @Column(name = "cell_id")
     val cellId: Long? = null,
 
     @OneToOne
-    @JoinColumn(name = "cell_id", referencedColumnName = "id")
+    @JoinColumn(name = "cell_id", referencedColumnName = "id", insertable = false, updatable = false)
     val cell: Cell? = null,
+
+    val dsc: String? = null,
 )

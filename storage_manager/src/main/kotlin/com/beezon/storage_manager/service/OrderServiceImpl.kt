@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 class OrderServiceImpl(private val orderRepository: OrderRepository): OrderService {
     override fun create(request: OrderRequest): Order {
         val order = Order(
-            barCode = request.barCode,
+            id = request.orderNum,
             client = request.client,
             itemsCount = request.itemsCount,
             cellId = request.cellId,
@@ -18,12 +18,12 @@ class OrderServiceImpl(private val orderRepository: OrderRepository): OrderServi
         return orderRepository.save(order)
     }
 
-    override fun get(id: Long): Order {
+    override fun get(id: String): Order {
         return orderRepository.findById(id)
             .orElseThrow()
     }
 
-    override fun delete(id: Long) {
+    override fun delete(id: String) {
         orderRepository.deleteById(id)
     }
 

@@ -5,6 +5,6 @@ import com.beezon.storage_manager.entity.Order
 
 interface OrderService {
     fun create(request: OrderRequest): Order
-    fun get(id: Long): Order
-    fun delete(id: Long)
+    fun get(id: String): Order
+    fun delete(id: String)
 }
