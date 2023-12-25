@@ -29,7 +29,7 @@ class OrderPartServiceImpl(
         }
 
         val orderPart = OrderPart(
-            barCode = request.barCode,
+            barcode = request.barcode,
             partNum = request.partNum,
             orderId = order.id,
             dsc = request.dsc,

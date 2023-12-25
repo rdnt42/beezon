@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    username: manager
+    password: manager
+    url: jdbc:postgresql://localhost:5432/storage

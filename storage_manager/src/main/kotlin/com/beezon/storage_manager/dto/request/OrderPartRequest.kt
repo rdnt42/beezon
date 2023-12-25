@@ -1,7 +1,7 @@
 package com.beezon.storage_manager.dto.request
 
 data class OrderPartRequest(
-    val barCode: String,
+    val barcode: String,
 
     val partNum: Int,
 

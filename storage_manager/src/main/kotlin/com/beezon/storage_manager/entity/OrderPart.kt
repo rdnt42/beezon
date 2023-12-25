@@ -10,7 +10,7 @@ data class OrderPart(
     val id: Long? = null,
 
     @Column(unique = true)
-    val barCode: String,
+    val barcode: String,
 
     val partNum: Int,
 
@@ -22,5 +22,4 @@ data class OrderPart(
     val order: Order? = null,
 
     val dsc: String? = null,
-
 )
