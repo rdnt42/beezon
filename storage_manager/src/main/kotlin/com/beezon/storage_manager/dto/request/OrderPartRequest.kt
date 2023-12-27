@@ -5,7 +5,7 @@ data class OrderPartRequest(
 
     val partNum: Int,
 
-    val orderId: String,
+    val orderNum: String,
 
     val cellId: Long,
 

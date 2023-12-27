@@ -12,7 +12,7 @@ data class Order(
 
     val itemsCount: Int,
 
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     val parts: List<OrderPart>? = null,
 
     @Column(name = "cell_id")

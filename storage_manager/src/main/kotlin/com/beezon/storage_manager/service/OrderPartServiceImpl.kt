@@ -16,7 +16,7 @@ class OrderPartServiceImpl(
 
     @Transactional
     override fun create(request: OrderPartRequest): OrderPart {
-        val order = orderRepository.findById(request.orderId)
+        val order = orderRepository.findById(request.orderNum)
             .orElseThrow()
 
         if (order.cellId == null) {

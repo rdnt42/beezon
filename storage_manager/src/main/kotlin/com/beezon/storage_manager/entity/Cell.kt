@@ -1,5 +1,6 @@
 package com.beezon.storage_manager.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Table(name = "cells")
@@ -11,6 +12,7 @@ data class Cell(
 
     val placeCode: String,
 
+    @JsonIgnore
     @OneToOne(mappedBy="cell")
     val orders: Order
 )
