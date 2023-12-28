@@ -1,7 +1,7 @@
-import {OrderInfo} from "../obj/OrderInfo";
+import {BarcodeInfo} from "../obj/BarcodeInfo";
 
 export const BarcodeParserService = {
-    parseOrder(barCode: string): OrderInfo {
+    parseOrder(barCode: string): BarcodeInfo {
         let strings = barCode.split('-');
         if (strings.length !== 3) {
             throw new Error('Неизвестный штрих-код');

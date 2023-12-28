@@ -1,4 +1,4 @@
-export interface OrderInfo {
+export interface BarcodeInfo {
     barCode: string,
     orderNum: string,
     part: number,
