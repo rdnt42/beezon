@@ -15,6 +15,11 @@ class OrderController(private val orderService: OrderService) {
         return orderService.create(orderRequest)
     }
 
+    @PostMapping("/get-or-create")
+    fun getOrCreate(@RequestBody orderRequest: OrderRequest): Order {
+        return orderService.getOrCreate(orderRequest)
+    }
+
     @GetMapping("/{id}")
     fun getOrder(@PathVariable id: String): Order {
         return orderService.get(id)
