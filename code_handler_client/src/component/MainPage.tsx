@@ -55,7 +55,22 @@ export default function MainPage() {
             });
         }
         console.log('Select value', e.value);
+    }
 
+    const OrderInfo = () => {
+        if (searchOrder) {
+            const {cell, id} = searchOrder;
+            const cellInfo = `${cell ? `в яйчейке ${cell.placeCode}` : 'еще не добавлен'}`;
+            return <div>
+                <label htmlFor="orderInfo">Заказ {id} {cellInfo}</label>
+                <DataTable id="orderInfo" value={searchOrder?.parts} showGridlines style={{width: 500}}>
+                    <Column field="partNum" header="Часть заказа"></Column>
+                    <Column field="barcode" header="Штрих-код"></Column>
+                </DataTable>
+            </div>
+        }
+
+        return null;
     }
 
     return (
@@ -79,12 +94,9 @@ export default function MainPage() {
                 <InputText id="searchOrderNum" placeholder="Ввод номера заказа" value={selectedBarcode?.orderNum}
                            onChange={onChange}
                            style={{width: 500}}/>
-                <label htmlFor="orderInfo">Информация о заказе</label>
-                <DataTable id="orderInfo" value={searchOrder?.parts} showGridlines style={{width: 500}}>
-                    <Column field="partNum" header="Часть заказа"></Column>
-                    <Column field="barcode" header="Штрих-код"></Column>
-                </DataTable>
+
+                <OrderInfo/>
             </div>
         </div>
-    )
+    );
 }
