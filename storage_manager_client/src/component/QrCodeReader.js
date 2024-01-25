@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 export const QrParser = (props) => {
-    const [data, setData] = useState(null);
-
     return (
         <>
             <QrReader
                 onResult={(result, error) => {
                     if (!!result) {
-                        setData(result?.text);
+                        props.qrHandle(result?.text);
                     }
 
                     if (!!error) {
@@ -17,7 +15,6 @@ export const QrParser = (props) => {
                 }}
                 style={{ width: '100%' }}
              constraints={{ facingMode: 'environment' }}/>
-            <p>{data}</p>
         </>
     );
 };
