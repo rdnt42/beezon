@@ -14,25 +14,21 @@ function App() {
 
     const qrCodeCallback = (qrValue) => {
         setQrValue(qrValue);
-        // setScanEnabled(false);
     }
 
     const onScanBtnClick = () => {
         setScanEnabled(!scanEnabled);
+        if (scanEnabled) {
+            setQrValue('');
+        }
     }
 
     useEffect(() => {
+        console.log(`use effect, qr val ${qrValue}, scanEnaled: ${scanEnabled}`)
+        if (qrValue && qrValue !== '') {
             setScanEnabled(false);
-        // if (scanEnabled) {
-        //     setQrValue('');
-        // }
+        }
     }, [qrValue]);
-
-    // useEffect(() => {
-    //     if (scanEnabled) {
-    //         setQrValue('');
-    //     }
-    // }, [scanEnabled]);
 
     return (
         <>
