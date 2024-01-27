@@ -13,26 +13,18 @@ function App() {
     const buttonText = `${scanEnabled ? 'Выключить сканнер' : 'Включить сканнер'} `;
 
     const qrCodeCallback = (qrValue) => {
+        console.log('qr callback', qrValue);
+        setScanEnabled(false);
         setQrValue(qrValue);
     }
 
     const onScanBtnClick = () => {
         setScanEnabled(!scanEnabled);
-        if (scanEnabled) {
-            setQrValue('');
-        }
     }
-
-    useEffect(() => {
-        console.log(`use effect, qr val ${qrValue}, scanEnaled: ${scanEnabled}`)
-        if (qrValue && qrValue !== '') {
-            setScanEnabled(false);
-        }
-    }, [qrValue]);
 
     return (
         <>
-            {scanEnabled ? <QrParser qrHandle={qrCodeCallback}/> : null}
+            {scanEnabled ? <QrParser qrHandle={qrCodeCallback}/> : <ItemCard qrValue={qrValue}/>}
             <Button className="ScanButton" label={buttonText} onClick={onScanBtnClick}/>
         </>
     );
