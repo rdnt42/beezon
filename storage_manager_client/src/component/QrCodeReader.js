@@ -1,23 +1,25 @@
-import React from 'react';
-import QrReader from 'react-qr-reader'
-
+import React, { useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 export const QrParser = (props) => {
-    const handleScan = (result) => {
-        if (result) {
-            props.qrHandle(result);
+    const qrReader = React.createRef();
+    const handleScan = (result, error) => {
+        if (!!result) {
+            props.qrHandle(result?.text);
+            qrReader.current.stop();
         }
-    };
 
-    const handleError = (error) => {
-        console.error(error)
+        if (!!error) {
+            console.info(error);
+        }
     };
     return (
         <>
             <QrReader
-                onScan={handleScan}
-                onError={handleError}
-                style={{width: '100%'}}
-                constraints={{facingMode: 'environment'}}/>
+                onResult={(result, error) => {
+                    handleScan(result, error);
+                }}
+                style={{ width: '100%' }}
+             constraints={{ facingMode: 'environment' }}/>
         </>
     );
 };
