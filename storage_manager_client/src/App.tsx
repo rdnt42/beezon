@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {QrParser} from "./component/QrCodeReader";
 import 'primereact/resources/themes/lara-light-indigo/theme.css';   // theme
 import 'primeflex/primeflex.css';
@@ -7,12 +7,13 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "./css/component.css"
 import {ItemCard} from "./component/ItemCard";
 
+
 function App() {
     const [scanEnabled, setScanEnabled] = useState(false);
-    const [qrValue, setQrValue] = useState('');
+    const [qrValue, setQrValue] = useState<string>('');
     const buttonText = `${scanEnabled ? 'Выключить сканнер' : 'Включить сканнер'} `;
 
-    const qrCodeCallback = (qrValue) => {
+    const qrCodeCallback = (qrValue: string) => {
         console.log('qr callback', qrValue);
         setScanEnabled(false);
         setQrValue(qrValue);

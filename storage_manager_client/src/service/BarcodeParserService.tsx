@@ -1,10 +1,10 @@
+import {BarcodeInfo} from "../obj/BarcodeInfo";
 
 export const BarcodeParserService = {
-    parseOrder(barCode) {
-        if(!barCode || barCode === '') return {};
+    parseOrder(barCode: string): BarcodeInfo {
         let strings = barCode.split('-');
         if (strings.length !== 3) {
-            throw new Error('Неизвестный штрих-код');
+            throw new Error(`Неизвестный штрих-код: ${barCode}`);
         }
 
         const orderNum = strings[0];
