@@ -7,3 +7,21 @@
     transform: translate(-50%, -50%);
     margin: 0 auto;
 }
+
+label {
+    font-size: x-large;
+    display: block;
+    position: relative;
+    top: 10px;
+    /*left: 10%;*/
+    /*padding-left:120px; !* adjust if necessary *!*/
+}
+
+/*.label {*/
+/*    font-size: x-large;*/
+/*    position: absolute;*/
+/*    top: 10px;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    margin: 0 auto;*/
+/*}*/

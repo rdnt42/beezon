@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 class OrderPartController(private val orderPartService: OrderPartService) {
 
     @PostMapping
-    fun createOrder(@RequestBody request: OrderPartRequest): OrderPart {
+    fun create(@RequestBody request: OrderPartRequest): OrderPart {
         return orderPartService.create(request)
     }
 
